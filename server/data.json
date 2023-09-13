@@ -1,0 +1,174 @@
+[
+  {
+    "brand": "SAMSUNG",
+    "seller": "sakib",
+    "email": "sakib@hosen.com",
+    "posted": "28/11/2022",
+    "oldPrice": "12.99",
+    "newPrice": "7.99",
+    "used": "1 year",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/PZMfJ78/sam-m-12.jpg",
+    "location": "mirpur-10,Dhaka",
+    "description": {
+      "name": "Samsung-M12",
+      "made": "South Korea",
+      "display": "2.4 inch 300*600 px",
+      "ram": "5GB",
+      "camera": "12MP 10MP"
+    }
+  },
+  {
+    "brand": "REDMI",
+    "seller": "Samsunnahar",
+    "email": "samsunnahar@khatun.com",
+    "posted": "28/11/2022",
+    "oldPrice": "15.99",
+    "newPrice": "8.7",
+    "used": "1 year",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/8NBGGwX/redmi.jpg",
+    "location": "mirpur-10,Dhaka",
+    "description": {
+      "name": "Redme-Note11",
+      "made": "India",
+      "display": "2.4 inch 300*600 px",
+      "ram": "5GB",
+      "camera": "12MP 10MP"
+    }
+  },
+  {
+    "brand": "SYMPHONY",
+    "seller": "Iqbal Abdullah",
+    "email": "iqbal@abdullah.com",
+    "posted": "28/11/2022",
+    "oldPrice": "11",
+    "newPrice": "8.99",
+    "used": "1 year",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/dQLJzyy/sym-i-69.jpg",
+    "location": "Chuyadanga Sadar",
+    "description": {
+      "name": "Samphony-i69",
+      "made": "India",
+      "display": "2.4 inch 300*600 px",
+      "ram": "5GB",
+      "camera": "5MP 10MP"
+    }
+  },
+  {
+    "brand": "SAMSUNG",
+    "seller": "Sumaya",
+    "email": "Rikaya@khatun.com",
+    "posted": "28/11/2022",
+    "oldPrice": "19",
+    "newPrice": "12.99",
+    "used": "1 year",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/0XH98vm/sam-j5.jpg",
+    "location": "Khulna",
+    "description": {
+      "name": "Samsung-J5",
+      "made": "South Korea",
+      "display": "2.4 inch 300*600 px",
+      "ram": "5GB",
+      "camera": "12MP 10MP"
+    }
+  },
+  {
+    "brand": "SYMPHONY",
+    "seller": "Laboni",
+    "email": "laboni@khatun.com",
+    "posted": "28/11/2022",
+    "oldPrice": "9",
+    "newPrice": "6.99",
+    "used": "6 month",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/DpCBtkV/symi10.jpg",
+    "location": "Chuyadanga Sadar",
+    "description": {
+      "name": "Samphony-W10",
+      "made": "India",
+      "display": "2.4 inch 300*600 px",
+      "ram": "5GB",
+      "camera": "12MP 10MP"
+    }
+  },
+  {
+    "brand": "SYMPHONY",
+    "seller": "Mominul",
+    "email": "mominul@islam.com",
+    "posted": "28/11/2022",
+    "oldPrice": "4.5",
+    "newPrice": "2.99",
+    "used": "3 year",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/qjQmkrt/sym-w-60.jpg",
+    "location": "Khustia",
+    "description": {
+      "name": "Samphony-W60",
+      "made": "India",
+      "display": "2.4 inch 300*600 px",
+      "ram": "2GB",
+      "camera": "5MP 10MP"
+    }
+  },
+  {
+    "brand": "SAMSUNG",
+    "seller": "musad",
+    "email": "alamin@musad.com",
+    "posted": "28/11/2022",
+    "oldPrice": "7",
+    "newPrice": "5.99",
+    "used": "6 month",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/S6vvv86/sam-j2.jpg",
+    "location": "mirpur-10,Dhaka",
+    "description": {
+      "name": "Samsung-J2",
+      "made": "South Korea",
+      "display": "2.4 inch 100*200 px",
+      "ram": "2GB",
+      "camera": "5MP 10MP"
+    }
+  },
+  {
+    "brand": "REDMI",
+    "seller": "Rakib",
+    "email": "rakib@sala.com",
+    "posted": "28/11/2022",
+    "oldPrice": "12",
+    "newPrice": "8.99",
+    "used": "1 year",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/0BHFGVD/redmi1.jpg",
+    "location": "Chitagong",
+    "description": {
+      "name": "Redme-Note10",
+      "made": "India",
+      "display": "2.4 inch 300*600 px",
+      "ram": "7GB",
+      "camera": "12MP 10MP"
+    }
+  },
+
+  {
+    "brand": "REDMI",
+    "seller": "Rakib",
+    "email": "rakib@sakib.com",
+    "posted": "22/12/2022",
+    "oldPrice": "13",
+    "newPrice": "8.99",
+    "used": "6 month",
+    "features": "ram,camera,earphone",
+    "img": "https://i.ibb.co/zrWXfvH/Capture-3.png",
+    "location": "Chuyadanga Sadar",
+    "description": {
+      "name": "Redme-Pro2",
+      "made": "India",
+      "display": "2.4 inch 300*600 px",
+      "ram": "6 GB",
+      "camera": "12MP 10MP"
+    }
+  }
+]
