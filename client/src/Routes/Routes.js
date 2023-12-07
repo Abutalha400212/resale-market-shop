@@ -20,6 +20,8 @@ import Signup from "../Pages/Signup";
 import Home from "../Pages/Home/Home";
 import Products from "../Pages/Products";
 import ProductDetails from "../Pages/ProductDetails";
+import Invoice from "../Pages/Invoice";
+import Payment from "../Payment/Payment";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -38,8 +40,12 @@ export const router = createBrowserRouter([
         element: <ProductDetails />,
       },
       {
-        path: "/blog",
-        element: <Blog />,
+        path: "/invoice",
+        element: <Invoice />,
+      },
+      {
+        path: "/dashboard/payment",
+        element: <Payment />,
       },
       // {
       //   path: "/dashboard",
@@ -81,12 +87,12 @@ export const router = createBrowserRouter([
       //       path: "/dashboard/report",
       //       element: <Reported />,
       //     },
-      //     {
-      //       path: "/dashboard/payment/:id",
-      //       loader: ({ params }) =>
-      //         fetch(`http://localhost:5000/booking/${params.id}`),
-      //       element: <Payment />,
-      //     },
+          // {
+          //   path: "/dashboard/payment/:id",
+          //   loader: ({ params }) =>
+          //     fetch(`http://localhost:5000/booking/${params.id}`),
+          //   element: <Payment />,
+          // },
       //   ],
       // },
     ],

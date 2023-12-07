@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 
 const ProductCard = ({ item, setHandleShop }) => {
   const { pathname } = useLocation();
@@ -41,7 +42,7 @@ const ProductCard = ({ item, setHandleShop }) => {
       <Link to={`/products/${_id}`}>
         <img className="w-full h-full" src={img} alt="product_image" />
         <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
-          {Math.ceil(((price - newPrice) / price) * 100)}% OFF
+          {Math.ceil(((price - newPrice) / newPrice) * 100)}% OFF
         </span>
       </Link>
       <div class="mt-4 px-5 pb-5">
@@ -99,8 +100,8 @@ const ProductCard = ({ item, setHandleShop }) => {
             </span>
           </div>
         </div>
-        <a
-          href="#"
+        <button
+       onClick={()=>{document.getElementById('my_modal_5').showModal(setHandleShop(item))}}
           class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +117,7 @@ const ProductCard = ({ item, setHandleShop }) => {
             />
           </svg>
           Add to cart
-        </a>
+        </button>
       </div>
     </div>
   );

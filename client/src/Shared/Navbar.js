@@ -2,10 +2,12 @@ import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import logo from "../assest/Image/logo.png";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 // import { categories } from "../Api/CategoryApi";
 // import { AuthContext } from "../Context/AuthProvider";
 const Navbar = () => {
-  const user = { email: "abu" };
+  const { productToCart } = useContext(AuthContext);
+  const user = { email: "" };
   const [header, setHeader] = useState("bg-transparent");
   const listenScrollEvent = (event) => {
     if (window.scrollY < 73) {
@@ -29,95 +31,20 @@ const Navbar = () => {
   // const handleAllData = () => {
   //   categories().then((data) => setCategoriesItem(data));
   // };
-  const navItem = (
-    <>
-      <li>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            `flex items-center px-4 m-0.5 rounded-md transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-              isActive ? "bg-gray-300  text-gray-700" : "bg-gray-100"
-            }`
-          }>
-          <span className=" font-medium">Home</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/products"
-          // onClick={handleAllData}
-          className={({ isActive }) =>
-            `flex items-center px-4 m-0.5 rounded-md transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-              isActive ? "bg-gray-300  text-gray-700" : "bg-gray-100"
-            }`
-          }>
-          <span className=" font-medium">Products</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/blog"
-          className={({ isActive }) =>
-            `flex items-center px-4 m-0.5 rounded-md transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-              isActive ? "bg-gray-300  text-gray-700" : "bg-gray-100"
-            }`
-          }>
-          <span className=" font-medium">Blog</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            `flex items-center px-4 m-0.5 rounded-md transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-              isActive ? "bg-gray-300  text-gray-700" : "bg-gray-100"
-            }`
-          }>
-          <span className=" font-medium">Dashboard</span>
-        </NavLink>
-      </li>
-    </>
-  );
-
-  const authItem = (
-    <>
-      <li>
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
-            `flex items-center px-4 m-0.5 rounded-md transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-              isActive ? "bg-gray-300  text-gray-700" : "bg-gray-100"
-            }`
-          }>
-          <span className=" font-medium">Log in</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/signup"
-          className={({ isActive }) =>
-            `flex items-center px-4 m-0.5 rounded-md transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-              isActive ? "bg-gray-300  text-gray-700" : "bg-gray-100"
-            }`
-          }>
-          <span className=" font-medium">Sign Up</span>
-        </NavLink>
-      </li>
-    </>
-  );
+  console.log(productToCart);
 
   return (
-    <div
-      className={`navbar fixed top-0 w-full z-10 duration-300 ease-in-out ${header} `}>
+    <div className="navbar bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor">
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -125,34 +52,108 @@ const Navbar = () => {
                 d="M4 6h16M4 12h8m-8 6h16"
               />
             </svg>
-          </label>
+          </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            {navItem}
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Parent</a>
+              <ul className="p-2">
+                <li>
+                  <a>Submenu 1</a>
+                </li>
+                <li>
+                  <a>Submenu 2</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a>Item 3</a>
+            </li>
           </ul>
         </div>
-        <Link to={"/"} className="ml-2">
-          <img
-            className="shadow-md shadow-orange-700 rounded-full w-14 h-14 "
-            src={logo}
-            alt=""
-          />
+        <Link to={"/"}>
+          <img className="w-16 h-16" src={logo} alt="Logo" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navItem}</ul>
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            <Link to={"/products"}>Products</Link>
+          </li>
+          <li>
+            <Link to={"/dashboard"}>Dashboard</Link>
+          </li>
+        </ul>
       </div>
       <div className="navbar-end">
-        <ul className="menu menu-horizontal px-1">
-          {!user.email ? (
-            authItem
-          ) : (
-            <button className="flex items-center px-4 py-2 m-0.5 rounded-md transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700">
-              <span className="font-bold">Log Out</span>
-            </button>
-          )}
-        </ul>
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+            <Link to={"/invoice"}>
+              {" "}
+              <div className="indicator">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span className="badge badge-sm indicator-item">
+                  {productToCart?.length}
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+        {user && user.email ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link to={"/login"} className="btn btn-info btn-sm">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

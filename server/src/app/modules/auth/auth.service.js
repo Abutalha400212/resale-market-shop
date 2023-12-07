@@ -20,14 +20,12 @@ const createUser = async (payload) => {
     payload.password,
     Number(config.bcrypt_salt_rounds)
   );
-  const { insertedId } = await userCollection.insertOne(payload);
-  const { role, email } = await userCollection.findOne({
-    _id: ObjectId(insertedId),
-  });
-  const token = jwt.sign({ email: email, role: role }, config.jwt.secret);
-  return {
-    token,
-  };
+  const result = await userCollection.insertOne(payload);
+  // const { role, email } = await userCollection.findOne({
+  //   _id: ObjectId(insertedId),
+  // });
+  // const token = jwt.sign({ email: email, role: role }, config.jwt.secret);
+  return result;
 };
 const getUser = async (token) => {
   const db = await database.getDB();

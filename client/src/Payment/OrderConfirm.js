@@ -8,27 +8,29 @@ import {
 } from "../Api/OrderBooking";
 import { soldProduct } from "../Api/UserCollection";
 import { updateWishlist } from "../Api/WishlistCollection";
+import { useNavigate } from "react-router-dom";
 
 const OrderConfirm = ({ data }) => {
-  const { price, product, email, _id, Cellphone } = data;
-  console.log(data);
+  const navigate = useNavigate();
+  const { price } = data;
   const [processign, setProcessing] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
+  console.log(clientSecret);
   const [cardError, setCardError] = useState("");
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("http://localhost:5000/api/v1/payments/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        // authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify({ price }),
     })
       .then((res) => res.json())
       .then((data) => {
-        setClientSecret(data.clientSecret);
+        setClientSecret(data.data.clientSecret);
       });
   }, [price]);
 
@@ -37,7 +39,6 @@ const OrderConfirm = ({ data }) => {
     if (!stripe || !elements) {
       return;
     }
-
     const card = elements.getElement(CardElement);
 
     if (card == null) {
@@ -58,10 +59,6 @@ const OrderConfirm = ({ data }) => {
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: card,
-          billing_details: {
-            name: product,
-            email: email,
-          },
         },
       });
     if (confirmError) {
@@ -70,28 +67,31 @@ const OrderConfirm = ({ data }) => {
     }
 
     if (paymentIntent.status === "succeeded") {
+      navigate("/invoice", { state: { isConfirm: true } });
+      toast.success(
+        `Your products bill full paid . your transaction Id is ${paymentIntent.id}`
+      );
       const id = paymentIntent.id;
       const payment = {
         price,
         transactionId: paymentIntent.id,
-        email,
-        product,
       };
-      confirmPayment(payment).then((data) => {
-        confirmPaymentUpdateOne(Cellphone).then((data) => {
-          soldProduct(_id).then((data) => {
-            confirmPaymentUpdateTwo(Cellphone).then((data) => {
-              updateWishlist(Cellphone).then((data) => {
-                if (data.acknowledged) {
-                  toast.success(
-                    `Your ${product}s bill paid . your transaction Id is ${id}`
-                  );
-                }
-              });
-            });
-          });
-        });
-      });
+      console.log(payment);
+      // confirmPayment(payment).then((data) => {
+      //   confirmPaymentUpdateOne(Cellphone).then((data) => {
+      //     soldProduct(_id).then((data) => {
+      //       confirmPaymentUpdateTwo(Cellphone).then((data) => {
+      //         updateWishlist(Cellphone).then((data) => {
+      //           if (data.acknowledged) {
+      //             toast.success(
+      //               `Your ${product}s bill paid . your transaction Id is ${id}`
+      //             );
+      //           }
+      //         });
+      //       });
+      //     });
+      //   });
+      // });
     }
   };
   return (
@@ -113,14 +113,10 @@ const OrderConfirm = ({ data }) => {
             },
           }}
         />
-        <button
-          className="btn btn-sm btn-primary mt-5"
-          type="submit"
-          disabled={!stripe || !clientSecret || processign}>
+        <button className="btn btn-sm btn-primary mt-5" type="submit">
           Pay
         </button>
       </form>
-      <p className="text-red-500">{cardError}</p>
     </>
   );
 };

@@ -5,6 +5,7 @@ dotenv.config({ path: path.join(process.cwd(), ".env") });
 module.exports.config = {
   env: process.env.NODE_DEV,
   port: process.env.PORT,
+  stripe_secret_key:process.env.STRIPE_SECRET_KEY,
   database_url: process.env.DATABASE_URL,
   bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
   jwt: {

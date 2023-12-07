@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <>
       {!loading && (
-        <footer className="mt-[calc(100vh-36px)] p-5 bg-blue-50 rounded shadow-xl bordered md:px-28 md:py-6 text-black">
+        <footer className=" mt-5 rounded shadow-md border border-1  md:px-28 md:py-6 text-black">
           <div className="md:flex items-center justify-between">
             <Link to="/">
               <img

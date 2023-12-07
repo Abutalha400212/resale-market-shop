@@ -1,13 +1,19 @@
-export const userCollection = async (user) => {
-  const res = await fetch(`http://localhost:5000/users`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(user),
-  });
-  const data = await res.json();
-  return data;
+// export const userCollection = async (user) => {
+//   const res = await fetch(`http://localhost:5000/api/v1/users`, {
+//     method: "POST",
+//     headers: {
+//       "content-type": "application/json",
+//     },
+//     body: JSON.stringify(user),
+//   });
+//   const data = await res.json();
+//   return data;
+
+import { axiosInstance } from "../axios/axiosInstance";
+
+const insertUserToDB = async (user) => {
+  const res = await axiosInstance.post("/auth/create-user", user);
+  return res;
 };
 
 export const usersByUserType = async (account) => {
@@ -53,4 +59,8 @@ export const soldProduct = async (id) => {
   });
   const data = await res.json();
   return data;
+};
+
+export const UserCollection = {
+  insertUserToDB,
 };
