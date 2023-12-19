@@ -1,16 +1,24 @@
-import React, { createContext, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase.auth";
+import React, { createContext } from "react";
+import Loader from "../Components/UI/Loader";
+import { useGetFromCartQuery } from "../redux/service/cartApi";
+import { useGetUserQuery } from "../redux/service/authApi";
+
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
-  const [user, loading, error] = useAuthState(auth);
-  console.log(user);
-  const [productToCart, setProductToCart] = useState([]);
-  const authInfo = {
-    productToCart,
-    setProductToCart,
+  const { data, isLoading } = useGetUserQuery();
+  const user = data?.data;
+  let authInfo = {
+    user,
+    isLoading,
   };
+  const { data: cart } = useGetFromCartQuery({ email: user?.email });
+  console.log(cart);
+  authInfo.products = cart?.data;
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
-import useAdmin from "../hooks/useAdmin";
+import Loader from "../Components/UI/Loader";
 
 const AdminRoute = ({ children }) => {
   const location = useLocation();
-  const { user, loading } = useContext(AuthContext);
-  const [admin, adminLoading] = useAdmin(user?.email);
-  if (loading || adminLoading) {
-    return <progress className="progress w-56"></progress>;
+  const { user, isLoading } = useContext(AuthContext);
+  if (isLoading) {
+    return <Loader />;
   }
-  if (user && admin) {
+  if (user && user?.role === "admin") {
     return children;
   }
 

@@ -1,7 +1,7 @@
 const ProductsSearchableFields = ["name", "category"];
 const ProductFiltering = (options) => {
-  const { searchTerm } = options;
-  const andConditions = [];
+  const { searchTerm, email } = options;
+  let andConditions = [];
   if (searchTerm) {
     andConditions.push({
       $or: ProductsSearchableFields.map((field) => ({
@@ -12,6 +12,13 @@ const ProductFiltering = (options) => {
       })),
     });
   }
+
+  if (email) {
+    andConditions.push({
+      email: email,
+    });
+  }
+
   return andConditions;
 };
 

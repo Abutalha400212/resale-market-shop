@@ -2,13 +2,17 @@ const { ObjectId } = require("mongodb");
 const database = require("../../../utils/database");
 const { PaginationHelper } = require("../../helpers/PaginationHelpers");
 const { FilteringHelper } = require("../../helpers/FilteringHelpers");
+const { ImageUploadHelper } = require("../../helpers/ImageUploadHelpers");
 
-const addProduct = async (payload) => {
+const addProduct = async (req) => {
+  const payload = JSON.parse(req.body.data);
+  const image = await ImageUploadHelper.uploadToCloudinary(req.file);
+  payload.img = image.secure_url;
   const db = await database.getDB();
   const productsCollection = db.collection("products");
-  const { insertedId } = await productsCollection.insertOne(payload);
-  const result = await productsCollection.findOne({
-    _id: ObjectId(insertedId),
+  const result = await productsCollection.insertOne({
+    ...payload,
+    createAt: new Date(),
   });
   return result;
 };
@@ -17,7 +21,7 @@ const getProducts = async (filters, paginationOtions) => {
   const productsCollection = db.collection("products");
   const { page, limit, skip, sortBy, sortOrder } =
     PaginationHelper.createPagination(paginationOtions);
-  const sortCondition = {};
+  let sortCondition = {};
   const andConditions = FilteringHelper.ProductFiltering(filters);
   if (sortBy && sortOrder) {
     sortCondition[sortBy] = sortOrder;
@@ -44,15 +48,47 @@ const getProducts = async (filters, paginationOtions) => {
     data: result,
   };
 };
-const getAProduct = async (id) => {
+const getProductById = async (id) => {
   const db = await database.getDB();
   const productsCollection = db.collection("products");
   const result = await productsCollection.findOne({ _id: ObjectId(id) });
+  return result;
+};
+const updateProductById = async (payload) => {
+  const db = await database.getDB();
+  const productsCollection = db.collection("products");
+  const result = await productsCollection.updateOne(
+    { _id: ObjectId(payload._id) },
+    {
+      $set: {
+        rating: payload?.rating,
+        $inc: { ratingsCount: payload?.rating },
+      },
+    }
+  );
+  return result;
+};
+const deleteProductById = async (id) => {
+  const db = await database.getDB();
+  const productsCollection = db.collection("products");
+  const result = await productsCollection.deleteOne({ _id: ObjectId(id) });
+  return result;
+};
+const getProductsWithoutCondition = async (id) => {
+  const db = await database.getDB();
+  const productsCollection = db.collection("products");
+  const result = await productsCollection
+    .find({})
+    .sort({ createAt: "desc" })
+    .toArray();
   return result;
 };
 
 module.exports.ProductService = {
   addProduct,
   getProducts,
-  getAProduct,
+  getProductById,
+  deleteProductById,
+  updateProductById,
+  getProductsWithoutCondition,
 };

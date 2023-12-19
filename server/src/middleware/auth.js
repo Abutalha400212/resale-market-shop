@@ -6,7 +6,6 @@ const auth =
   (...requiredRoles) =>
   async (req, res, next) => {
     try {
-      console.log(requiredRoles);
       //get authorization token
       const token = req.headers.authorization;
       if (!token) {

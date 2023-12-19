@@ -3,7 +3,7 @@ const { catchAsync } = require("../../../utils/catchAsync");
 const { sendResponse } = require("../../../utils/sendResponse");
 const { AuthService } = require("./auth.service");
 const createUser = catchAsync(async (req, res, next) => {
-  const result = await AuthService.createUser(req.body);
+  const result = await AuthService.createUser(req);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     message: "User created successfully",
@@ -19,6 +19,14 @@ const getUser = catchAsync(async (req, res, next) => {
     data: result,
   });
 });
+const upateUser = catchAsync(async (req, res, next) => {
+  const result = await AuthService.updateUser(req);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    message: "User Updated successfully",
+    data: result,
+  });
+});
 const login = catchAsync(async (req, res) => {
   const result = await AuthService.login(req.body);
   sendResponse(res, {
@@ -26,11 +34,26 @@ const login = catchAsync(async (req, res) => {
     message: "user login successfully",
     data: result,
   });
-  next();
+});
+const changePassword = catchAsync(async (req, res) => {
+  const result = await AuthService.changePassword(req.body);
+  if (result.modifiedCount > 0) {
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      message: "user login successfully",
+      data: result,
+    });
+  }
+  sendResponse(res, {
+    statusCode: httpStatus.BAD_GATEWAY,
+    message: "Password Reset Unsuccessfull",
+  });
 });
 
 module.exports.AuthController = {
   createUser,
   login,
   getUser,
+  changePassword,
+  upateUser,
 };

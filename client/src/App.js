@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
-    <div className="w-[95%] mx-auto">
+    <div className="">
       <Toaster />
       <MainLayout />
     </div>

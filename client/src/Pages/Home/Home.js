@@ -1,14 +1,15 @@
 import React from "react";
 import Hero from "./Hero";
-import ShopDesk from "./ShopDesk";
-import Advertise from "./Advertise";
+import Products from "../ProductsPage";
+import PaymentHeroNotice from "./PaymentHeroNotice";
 
 const Home = () => {
   return (
     <div>
       <Hero />
-      <ShopDesk />
-      <Advertise />
+      <PaymentHeroNotice />
+      <div className="divider pt-10">Products</div>
+      <Products />
     </div>
   );
 };

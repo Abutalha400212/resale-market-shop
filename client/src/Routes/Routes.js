@@ -1,27 +1,31 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import ErrorPage from "../Components/ErrorPage";
-// import DashboardLayout from "../layout/DashboardLayout";
-import Blog from "../Pages/Blog";
-// import AddAProduct from "../Pages/Dashboard/AddAProduct/AddAProduct";
-// import AllSeller from "../Pages/Dashboard/AllSeller/AllSeller";
-// import AllUsers from "../Pages/Dashboard/AllUser/AllUsers";
-// import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
-// import MyProducts from "../Pages/Dashboard/MyProducts/MyProducts";
-// import Reported from "../Pages/Dashboard/Reported/Reported";
-// import Wishlist from "../Pages/Dashboard/WishList/Wishlist";
-import Login from "../Pages/Login";
-import Signup from "../Pages/Signup";
-// import Payment from "../Payment/Payment";
-// import AdminRoute from "./AdminRoute";
-// import PrivateRoute from "./PrivateRoute";
-// import SellerRoute from "./SellerRoute";
-// import UserRoute from "./UserRoute";
+import ErrorPage from "../Pages/ErrorPage";
+import Login from "../Pages/Authentication/Login";
+import Signup from "../Pages/Authentication/Signup";
 import Home from "../Pages/Home/Home";
-import Products from "../Pages/Products";
-import ProductDetails from "../Pages/ProductDetails";
-import Invoice from "../Pages/Invoice";
-import Payment from "../Payment/Payment";
+import PlaceOrderGetway from "../payment/PlaceOrderGateway";
+import MyOrders from "../Pages/Dashboard/MyOrders";
+import ProductDetails from "../Pages/ProductDetailsPage";
+import AddProduct from "../Pages/Dashboard/AddProduct";
+import DashboardLayout from "../layout/DashboardLayout";
+import MyProducts from "../Pages/Dashboard/MyProducts";
+import ProductsForSearch from "../Pages/ProductsSearchPage";
+import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import Profile from "../Pages/Dashboard/Profile";
+import ChangePassword from "../Pages/Dashboard/ChangePassword";
+import SuccessMesssage from "../payment/SuccessMessage";
+import Cart from "../Pages/Dashboard/Cart";
+import Products from "../Pages/ProductsPage";
+import PaymentFail from "../payment/FailMessage";
+import UpdateProfile from "../Pages/Dashboard/UpdateProfile";
+import Wishlist from "../Pages/Dashboard/Wishlist";
+import SellerRoute from "./SellerRoute";
+import UserRoute from "./UserRoute";
+import AdminRoute from "./AdminRoute";
+import AllUsers from "../Pages/Dashboard/AllUsers";
+import AllProducts from "../Pages/Dashboard/AllProducts";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +36,10 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/products/search",
+        element: <ProductsForSearch />,
+      },
+      {
         path: "/products",
         element: <Products />,
       },
@@ -39,72 +47,114 @@ export const router = createBrowserRouter([
         path: "/products/:id",
         element: <ProductDetails />,
       },
+
       {
-        path: "/invoice",
-        element: <Invoice />,
+        path: "/payment_gateway/success",
+        element: <SuccessMesssage />,
       },
       {
-        path: "/dashboard/payment",
-        element: <Payment />,
+        path: "/payment_gateway/fail",
+        element: <PaymentFail />,
       },
-      // {
-      //   path: "/dashboard",
-      //   element: (
-      //     <PrivateRoute>
-      //       <DashboardLayout />
-      //     </PrivateRoute>
-      //   ),
-      //   children: [
-      //     {
-      //       path: "/dashboard/allUsers",
-      //       element: <AllUsers />,
-      //     },
-      //     {
-      //       path: "/dashboard/allSellers",
-      //       element: <AllSeller />,
-      //     },
-      //     {
-      //       path: "/dashboard/addProduct",
-      //       element: <AddAProduct />,
-      //     },
-      //     {
-      //       path: "/dashboard/myProducts",
-      //       element: <MyProducts />,
-      //     },
-      //     {
-      //       path: "/dashboard/myOrders",
-      //       element: <MyOrders />,
-      //     },
-      //     {
-      //       path: "/dashboard/wishlist",
-      //       element: <Wishlist />,
-      //     },
-      //     {
-      //       path: "/dashboard/myOrders",
-      //       element: <MyOrders />,
-      //     },
-      //     {
-      //       path: "/dashboard/report",
-      //       element: <Reported />,
-      //     },
-          // {
-          //   path: "/dashboard/payment/:id",
-          //   loader: ({ params }) =>
-          //     fetch(`http://localhost:5000/booking/${params.id}`),
-          //   element: <Payment />,
-          // },
-      //   ],
-      // },
+      {
+        path: "/order/place_order",
+        element: <PlaceOrderGetway />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
     ],
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+
+    children: [
+      {
+        path: "/dashboard/add_product",
+        element: (
+          <SellerRoute>
+            <AddProduct />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/dashboard/profile/update_info",
+        element: <UpdateProfile />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/orders",
+        element: (
+          <UserRoute>
+            <MyOrders />
+          </UserRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all_users",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all_products",
+        element: (
+          <AdminRoute>
+            <AllProducts />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/cart",
+        element: (
+          <UserRoute>
+            <Cart />
+          </UserRoute>
+        ),
+      },
+      {
+        path: "/dashboard/wishlist",
+        element: (
+          <UserRoute>
+            <Wishlist />
+          </UserRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/products",
+        element: (
+          <SellerRoute>
+            <MyProducts />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/change_password",
+        element: <ChangePassword />,
+      },
+    ],
   },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
+
   {
     path: "*",
     element: <ErrorPage />,

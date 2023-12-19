@@ -4,12 +4,14 @@ import { AuthContext } from "../Context/AuthProvider";
 
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
-  const { user,loading } = useContext(AuthContext);
-  if(loading){
-    return <progress className="progress w-56"></progress>
+  const { user, isLoading } = useContext(AuthContext);
+  if (isLoading) {
+    return <progress className="progress w-56"></progress>;
   }
   if (!user) {
-    return <Navigate to={"/login"} state={{ from: location }} replace></Navigate>;
+    return (
+      <Navigate to={"/login"} state={{ from: location }} replace></Navigate>
+    );
   }
 
   return children;
